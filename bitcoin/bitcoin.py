@@ -1,3 +1,4 @@
+token = "4d088d8197f8bad817a87ab40ad48071bb3142f83f8b8985a60156a97d031fc4"
 import requests
 import sys
 try:
@@ -7,9 +8,10 @@ try:
         sys.exit("Missing command-line argument")
 
     else:
-        o = requests.get("https://api.coindesk.com/v1/bpi/currentprice.json")
+        o = requests.get(f"https://rest.coincap.io/v3/assets/bitcoin?apiKey={token}")
         t = o.json()
-        x = t["bpi"]["USD"]["rate_float"]
+        
+        x = t["data"]["priceUsd"]
         total = (float(x) * float(sys.argv[1]))
         print(f"${total:,.4f}")
 except requests.RequestException:
